@@ -11,7 +11,7 @@ import coffeeStoresData from "../../data/coffee-stores.json";
 import cls from "classnames";
 
 import styles from "../../styles/coffee-store.module.css";
-// import { fetchCoffeeStores } from "../../lib/coffee-stores";
+import { fetchCoffeeStores } from "../../lib/coffee-stores";
 
 // import { StoreContext } from "../../store/store-context";
 
@@ -20,10 +20,11 @@ import styles from "../../styles/coffee-store.module.css";
 export async function getStaticProps(staticProps) {
   const params = staticProps.params;
 
-  // const coffeeStores = await fetchCoffeeStores();
-  const coffeeStores = await coffeeStoresData;
+  const coffeeStores = await fetchCoffeeStores();
+  // const coffeeStores = await coffeeStoresData;
   const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
-    return coffeeStore.id.toString() === params.id; //dynamic id
+    return coffeeStore.fsq_id.toString() === params.id; //dynamic id
+    // return coffeeStore.id.toString() === params.id;
   });
   return {
     props: {
@@ -33,12 +34,13 @@ export async function getStaticProps(staticProps) {
 }
 
 export async function getStaticPaths() {
-  // const coffeeStores = await fetchCoffeeStores();
-  const coffeeStores = await coffeeStoresData;
+  const coffeeStores = await fetchCoffeeStores();
+  // const coffeeStores = await coffeeStoresData;
   const paths = coffeeStores.map((coffeeStore) => {
     return {
       params: {
-        id: coffeeStore.id.toString(),
+        // id: coffeeStore.id.toString(),
+        id: coffeeStore.fsq_id.toString(),
       },
     };
   });
@@ -123,7 +125,7 @@ const CoffeeStore = (props) => {
   //   }
   // }, [data]);
 
-  const { name, imgUrl, neighbourhood, address } = props.coffeeStore;
+  const { name, imgUrl, neighbourhood, address, location } = props.coffeeStore;
 
   //  getStaticPaths if fallback is true
   if (router.isFallback) {
@@ -188,10 +190,10 @@ const CoffeeStore = (props) => {
         </div>
 
         <div className={cls("glass", styles.col2)}>
-          {address && (
+          {location.address && (
             <div className={styles.iconWrapper}>
               <Image src="/static/icons/places.svg" width="24" height="24" alt="places icon" />
-              <p className={styles.text}>{address}</p>
+              <p className={styles.text}>{location.address}</p>
             </div>
           )}
           {neighbourhood && (

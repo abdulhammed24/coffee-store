@@ -6,28 +6,14 @@ import styles from "../styles/Home.module.css";
 import Banner from "../components/banner";
 import Card from "../components/card";
 import coffeeStoresData from "../data/coffee-stores.json";
+import { fetchCoffeeStores } from "../lib/coffee-stores";
 
 export async function getStaticProps(context) {
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: process.env.FOURSQUARE_API,
-    },
-  };
-
-  const response = await fetch(
-    "https://api.foursquare.com/v3/places/search?query=coffee&ll=6.678986905053477%2C3.165150920591198&limit=6",
-    options
-  );
-
-  const data = await response.json();
-  // console.log(data.results);
-  // .catch((err) => console.error(err));
+  const coffeeStores = await fetchCoffeeStores();
 
   return {
     props: {
-      coffeeStores: data.results,
+      coffeeStores: coffeeStores,
     },
   };
 }
@@ -90,7 +76,8 @@ export default function Home(props) {
                         coffeeStore.imgUrl ||
                         "https://images.unsplash.com/photo-1504753793650-d4a2b783c15e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80"
                       }
-                      href={`/coffee-store/${coffeeStore.id}`}
+                      // href={`/coffee-store/${coffeeStore.id}`}
+                      href={`/coffee-store/${coffeeStore.fsq_id}`}
                       className={styles.card}
                       priority={true}
                     />

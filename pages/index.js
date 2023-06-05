@@ -17,7 +17,7 @@ export async function getStaticProps(context) {
   };
 
   const response = await fetch(
-    "https://api.foursquare.com/v3/places/search?query=coffee&ll=6.678986905053477%2C3.165150920591198",
+    "https://api.foursquare.com/v3/places/search?query=coffee&ll=6.678986905053477%2C3.165150920591198&limit=6",
     options
   );
 

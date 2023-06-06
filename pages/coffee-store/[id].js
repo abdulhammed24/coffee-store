@@ -23,8 +23,9 @@ export async function getStaticProps(staticProps) {
   const coffeeStores = await fetchCoffeeStores();
   // const coffeeStores = await coffeeStoresData;
   const findCoffeeStoreById = coffeeStores.find((coffeeStore) => {
-    return coffeeStore.fsq_id.toString() === params.id; //dynamic id
-    // return coffeeStore.id.toString() === params.id;
+    return coffeeStore.id.toString() === params.id; //dynamic id
+
+    // return coffeeStore.fsq_id.toString() === params.id;
   });
   return {
     props: {
@@ -39,8 +40,8 @@ export async function getStaticPaths() {
   const paths = coffeeStores.map((coffeeStore) => {
     return {
       params: {
-        // id: coffeeStore.id.toString(),
-        id: coffeeStore.fsq_id.toString(),
+        id: coffeeStore.id.toString(),
+        // id: coffeeStore.fsq_id.toString(),
       },
     };
   });
@@ -190,10 +191,10 @@ const CoffeeStore = (props) => {
         </div>
 
         <div className={cls("glass", styles.col2)}>
-          {location.address && (
+          {address && (
             <div className={styles.iconWrapper}>
               <Image src="/static/icons/places.svg" width="24" height="24" alt="places icon" />
-              <p className={styles.text}>{location.address}</p>
+              <p className={styles.text}>{address}</p>
             </div>
           )}
           {neighbourhood && (

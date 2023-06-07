@@ -126,7 +126,7 @@ const CoffeeStore = (props) => {
   //   }
   // }, [data]);
 
-  const { name, imgUrl, neighbourhood, address, location } = props.coffeeStore;
+  const { name, imgUrl, neighbourhood, address } = props.coffeeStore;
 
   //  getStaticPaths if fallback is true
   if (router.isFallback) {

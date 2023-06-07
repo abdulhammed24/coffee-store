@@ -65,7 +65,7 @@ export default function Home(props) {
         <div className={styles.sectionWrapper}>
           {props.coffeeStores.length > 0 && (
             <>
-              <h2 className={styles.heading2}>Lagos stores</h2>
+              <h2 className={styles.heading2}>Coffee Stores near me</h2>
               <div className={styles.cardLayout}>
                 {props.coffeeStores.map((coffeeStore, index) => {
                   return (
